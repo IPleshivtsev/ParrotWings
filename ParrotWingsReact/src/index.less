@@ -1,0 +1,215 @@
+@import '../src/components/auxiliary/constants.less';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding-bottom: 20px;
+  margin: 0;
+  font-size: 18px;
+  background-color: @bgColor;
+  ._simpleFont
+}
+
+h2 {
+  font-size: 22px;
+  color: @orange;
+  font-weight: normal;
+  padding: 15px 0px;
+}
+
+hr {
+  border: 0px;
+  border-top: 1px solid @grey;
+  margin-bottom: 25px;
+}
+
+hr.main-hr {
+  margin-top: 40px;
+  min-width: 600px;
+  margin-bottom: 10px;
+}
+
+input,
+button {
+  font-size: 18px;
+  outline: none;
+}
+
+input,
+textarea {
+  ._simpleFont
+}
+
+input:focus,
+textarea:focus {
+  outline: 1px solid @purple;
+}
+
+button {
+  ._buttonFont
+}
+
+.form-input input,
+.form-recipient-data .wrapper input,
+textarea {
+  width: 98%;
+  height: 30px;
+  border: 1px solid @grey;
+  margin-top: 5px;
+  padding-left: 5px;
+}
+
+.form-input textarea {
+  resize: none;
+  height: 100px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-block {
+  background: @white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 35px 70px;
+  margin: auto;
+}
+
+.form-block a:not([class='simple-link']),
+.form-block
+  button:not([class~='switch-button']):not([id='pagination-first-page']):not([id='pagination-previous-page']):not(
+    [id='pagination-next-page']
+  ):not([id='pagination-last-page']) {
+  margin: 0px;
+  display: block;
+  color: @white;
+  background-color: @purple;
+  border-radius: 30px;
+  border: 0px;
+  height: 44px;
+  width: 165px;
+  cursor: pointer;
+  font-size: 18px;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+}
+
+.input-error-message {
+  color: @red;
+  margin-top: 5px;
+}
+
+.form-error-message {
+  margin-top: 15px;
+  text-align: center;
+  color: @red;
+}
+
+.form-block
+  button:not([class~='switch-button']):not([id='pagination-first-page']):not([id='pagination-previous-page']):not(
+    [id='pagination-next-page']
+  ):not([id='pagination-last-page']):disabled {
+  background-color: @palePurple;
+}
+
+.form-block a.simple-link,
+.form-block
+  button:not([class~='switch-button']):not([id='pagination-first-page']):not([id='pagination-previous-page']):not(
+    [id='pagination-next-page']
+  ):not([id='pagination-last-page']) {
+  margin: auto;
+}
+
+.form-block p {
+  text-align: center;
+  margin: 1em 0em 1em 0em;
+}
+
+.banner-class a {
+  padding-top: 11px;
+}
+
+.switch-button-block {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.switch-button {
+  margin: auto;
+  display: inline-block;
+  background-color: initial;
+  border: 0;
+  padding-bottom: 17px;
+  width: 180px;
+  border-bottom: 2px solid @grey;
+  cursor: pointer;
+}
+
+.switch-button:hover,
+.switch-button.active {
+  color: @orange;
+  border-bottom: 3px solid @orange;
+}
+
+@media (min-width: 975px) {
+  .body-content {
+    margin: 125px 0px 0px 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .form-block {
+    width: 675px;
+  }
+
+  .banner-class {
+    width: 90%;
+    height: 300px;
+    max-width: 990px;
+  }
+}
+
+@media (max-width: 974px) {
+  .body-content {
+    margin: 125px 5% 0px 5%;
+  }
+
+  .form-block {
+    height: auto;
+    min-width: 675px;
+    max-width: 700px;
+  }
+}
+
+.loader {
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #00000080;
+}
+
+.loader img {
+  margin: auto;
+  margin-top: 285px;
+  width: 130px;
+  display: block;
+}
+
+.form-partial {
+  display: none;
+}
+
+.active-form {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
