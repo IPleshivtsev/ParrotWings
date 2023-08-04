@@ -13,7 +13,7 @@ public class Transaction
     /// <summary>
     /// Дата транзакции
     /// </summary>
-    public DateTime CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
 
     /// <summary>
     /// Идентификатор отправителя
@@ -23,7 +23,7 @@ public class Transaction
     /// <summary>
     /// Имя отправителя
     /// </summary>
-    public string SenderName { get; set; }
+    public string? SenderName { get; set; }
 
     /// <summary>
     /// Идентификатор получателя
@@ -43,5 +43,5 @@ public class Transaction
     /// <summary>
     /// Номер карты отправителя
     /// </summary>
-    public string TransferCardNumber { get; set; } = string.Empty;
+    public string? TransferCardNumber { get; set; } = string.Empty;
 }

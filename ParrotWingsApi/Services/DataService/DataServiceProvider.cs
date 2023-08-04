@@ -74,23 +74,20 @@ public class DataServiceProvider : IDataServiceProvider
     }
 
     /// <summary>
-    /// Асинхронное получение списка пользователей по фильтру
+    /// Асинхронное получение списка всех пользователей
     /// </summary>
-    /// <param name="filter">Фильтр по имени пользователя</param>
-    /// <returns>Task со списком пользователей</returns>
-    public async Task<List<User>> GetUsersByFilterAsync(
-        string filter)
+    /// <returns>Task со списком всех пользователей</returns>
+    public async Task<List<User>> GetAllUsersAsync()
     {
         var ctx = await _ctxFactory.CreateDbContextAsync();
 
         if (ctx.Users != null)
         {
             return await ctx.Users
-            .Where(x => x.Name.ToLower()
-            .Contains(filter.ToLower()))
-            .Select(c => new User {
-                Id = c.Id, 
-                Name = c.Name 
+            .Select(c => new User
+            {
+                Id = c.Id,
+                Name = c.Name
             })
             .ToListAsync();
         }
@@ -165,14 +162,19 @@ public class DataServiceProvider : IDataServiceProvider
         {
             if (ctx.Transactions != null)
             {
-                User sender = new User();
                 newTransaction.CreatedDate = DateTime.Now;
 
                 if (newTransaction.SenderId != null)
                 {
-                    sender = await ctx.Users
+                    User sender = await ctx.Users
                         .Where(c => c.Id == newTransaction.SenderId)
                         .FirstOrDefaultAsync();
+
+                    if (sender == null)
+                    {
+                        throw new Exception(
+                                ConstStrings.UserNotFound);
+                    }
                     int newBalance = sender.Balance - newTransaction.Amount;
 
                     if (newBalance < 0)
@@ -188,7 +190,14 @@ public class DataServiceProvider : IDataServiceProvider
 
                 User recipient = await ctx.Users
                     .Where(c => c.Id == newTransaction.RecipientId)
-                    .FirstAsync();
+                    .FirstOrDefaultAsync();
+
+                if (recipient == null)
+                {
+                    throw new Exception(
+                                ConstStrings.UserNotFound);
+                }
+
                 recipient.Balance = recipient.Balance + newTransaction.Amount;
                 newTransaction.RecipientName = recipient.Name;
 

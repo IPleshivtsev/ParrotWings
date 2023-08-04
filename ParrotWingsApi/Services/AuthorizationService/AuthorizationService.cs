@@ -32,7 +32,7 @@ public class AuthorizationService : IAuthorizationService
             {
                 new Claim("UserId", userId.ToString()),
             }),
-            Expires = DateTime.UtcNow.AddHours(1),
+            Expires = DateTime.UtcNow.AddMinutes(20),
             SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ParrotWingsApi.Data.Models;
@@ -10,6 +11,7 @@ using IAuthorizationService = ParrotWingsApi.Services.AuthorizationService.IAuth
 
 namespace ParrotWingsApi.Controllers;
 
+[EnableCors("AllowAllHeaders")]
 [Route("api/pw")]
 [ApiController]
 public class ApiController : ControllerBase
@@ -36,7 +38,7 @@ public class ApiController : ControllerBase
     ///// <summary>
     ///// Асинхронная авторизация пользователя
     ///// </summary>
-    ///// <param name="loginModel">Модель авторизации</param>
+    ///// <param name="accountData">Модель авторизации</param>
     ///// <returns>Task с токеном авторизации пользователя</returns>
     [HttpPost("Login")]
     public async Task<IActionResult> Login(
@@ -52,13 +54,13 @@ public class ApiController : ControllerBase
                 .GetUserByAccountDataAsync(accountData);
             string token = GetToken(user.Id.Value);
             LogEndInfo(token);
-            return Ok(token);
+            return Ok(JsonConvert.SerializeObject(token));
         }
         catch (Exception ex)
         {
             _loggerService.Error(ex.Message);
             _loggerService.EndLogMethod();
-            return BadRequest(ex.Message);
+            return BadRequest(JsonConvert.SerializeObject(ex.Message));
         }
     }
 
@@ -80,13 +82,13 @@ public class ApiController : ControllerBase
             User user = await _apiService
                 .GetUserById(GetUserIdFromHeaders().Value);
             LogEndInfo(user);
-            return Ok(user);
+            return Ok(JsonConvert.SerializeObject(user));
         }
         catch (Exception ex)
         {
             _loggerService.Error(ex.Message);
             _loggerService.EndLogMethod();
-            return BadRequest(ex.Message);
+            return BadRequest(JsonConvert.SerializeObject(ex.Message));
         }
     }
 
@@ -116,43 +118,41 @@ public class ApiController : ControllerBase
 
             string token = GetToken(newUser.Id.Value);
             LogEndInfo(token);
-            return Ok(token);
+            return Ok(JsonConvert.SerializeObject(token));
         }
         catch (Exception ex)
         {
             _loggerService.Error(ex.Message);
             _loggerService.EndLogMethod();
-            return BadRequest(ex.Message);
+            return BadRequest(JsonConvert.SerializeObject(ex.Message));
         }
     }
 
     /// <summary>
-    /// Асинхронное получение списка пользователей по фильтру
+    /// Асинхронное получение списка всех пользователей
     /// </summary>
-    /// <param name="filter">Фильтр по имени пользователя</param>
-    /// <returns>Task со списком пользователей</returns>
+    /// <returns>Task со списком всех пользователей</returns>
     [Authorize]
     [HttpGet]
-    [Route("GetUsersByFilter")]
-    public async Task<IActionResult> GetUsersByFilter(
-        string filter = "")
+    [Route("GetAllUsers")]
+    public async Task<IActionResult> GetAllUsers()
     {
         LogStartInfo(
             ControllerContext.RouteData.Values["action"].ToString(),
-            filter);
+            string.Empty);
 
         try
         {
             List<User> userList = await _apiService
-                .GetUsersByFilterAsync(filter);
+                .GetAllUsersAsync();
             LogEndInfo(userList);
-            return Ok(userList);
+            return Ok(JsonConvert.SerializeObject(userList.Select(x => new { id = x.Id, name = x.Name })));
         }
         catch (Exception ex)
         {
             _loggerService.Error(ex.Message);
             _loggerService.EndLogMethod();
-            return BadRequest(ex.Message);
+            return BadRequest(JsonConvert.SerializeObject(ex.Message));
         }
     }
 
@@ -182,13 +182,13 @@ public class ApiController : ControllerBase
             }
 
             LogEndInfo(newTransaction);
-            return Ok(newTransaction);
+            return Ok(JsonConvert.SerializeObject(newTransaction));
         }
         catch (Exception ex)
         {
             _loggerService.Error(ex.Message);
             _loggerService.EndLogMethod();
-            return BadRequest(ex.Message);
+            return BadRequest(JsonConvert.SerializeObject(ex.Message));
         }
     }
 
@@ -210,13 +210,13 @@ public class ApiController : ControllerBase
             List<Transaction> userTransactions = await _apiService
                 .GetAllTransactionsByUserIdAsync(GetUserIdFromHeaders().Value);
             LogEndInfo(userTransactions);
-            return Ok(userTransactions);
+            return Ok(JsonConvert.SerializeObject(userTransactions));
         }
         catch (Exception ex)
         {
             _loggerService.Error(ex.Message);
             _loggerService.EndLogMethod();
-            return BadRequest(ex.Message);
+            return BadRequest(JsonConvert.SerializeObject(ex.Message));
         }
     }
 
@@ -245,13 +245,13 @@ public class ApiController : ControllerBase
             }
 
             LogEndInfo(newAppeal);
-            return Ok(newAppeal);
+            return Ok(JsonConvert.SerializeObject(newAppeal));
         }
         catch (Exception ex)
         {
             _loggerService.Error(ex.Message);
             _loggerService.EndLogMethod();
-            return BadRequest(ex.Message);
+            return BadRequest(JsonConvert.SerializeObject(ex.Message));
         }
     }
 

@@ -76,20 +76,13 @@ public class ApiService : IApiService
     }
 
     /// <summary>
-    /// Асинхронное получение списка пользователей по фильтру
+    /// Асинхронное получение списка всех пользователей
     /// </summary>
-    /// <param name="filter">Фильтр по имени пользователя</param>
-    /// <returns>Task со списком пользователей</returns>
-    public async Task<List<User>> GetUsersByFilterAsync(
-        string filter)
+    /// <returns>Task со списком всех пользователей</returns>
+    public async Task<List<User>> GetAllUsersAsync()
     {
-        List<User> userList = new List<User>();
-
-        if (filter != string.Empty)
-        {
-            userList = await _dataServiceProvider
-                .GetUsersByFilterAsync(filter);
-        }
+        List<User> userList = await _dataServiceProvider
+            .GetAllUsersAsync();
         return userList;
     }
 

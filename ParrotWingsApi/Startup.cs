@@ -39,11 +39,21 @@ public class Startup
             };
         });
 
+        services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .AllowCredentials()
+                   .WithOrigins("http://localhost:4800");
+        }));
+        services.AddSignalR();
+
         services.AddScoped<DbContext, EntityContext>();
-        services.AddDbContext<EntityContext>(options => options.UseSqlServer(
+        services.AddDbContextFactory<EntityContext>(options => options.UseSqlServer(
             _configuration["ConnectionString"]
             .Replace("%CONTENTROOTPATH%", _configuration["CONTENTROOT"])
-            ));
+        ));
 
         services.AddScoped<IAuthorizationService, AuthorizationService>();
         services.AddScoped<IDataServiceProvider, DataServiceProvider>();
@@ -64,15 +74,17 @@ public class Startup
         {
             app.UseExceptionHandler("/Home/Error");
         }
-
+        
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseRouting();
+        app.UseCors("CorsPolicy");
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapControllers();
+            endpoints.MapControllers()
+            .RequireCors("CorsPolicy");
         });
     }
 }

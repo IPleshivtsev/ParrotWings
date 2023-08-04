@@ -20,11 +20,10 @@ public interface IDataServiceProvider
     Task<User> GetUserById(Guid id);
 
     /// <summary>
-    /// Асинхронное получение списка пользователей по фильтру
+    /// Асинхронное получение списка всех пользователей
     /// </summary>
-    /// <param name="filter">Фильтр по имени пользователя</param>
-    /// <returns>Task со списком пользователей</returns>
-    Task<List<User>> GetUsersByFilterAsync(string filter);
+    /// <returns>Task со списком всех пользователей</returns>
+    Task<List<User>> GetAllUsersAsync();
 
     /// <summary>
     /// Асинхронное получение всех транзакций пользователя по его идентификатору
