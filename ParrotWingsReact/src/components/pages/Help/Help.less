@@ -1,0 +1,67 @@
+@import '../../auxiliary/constants.less';
+
+#SendAppealForm,
+#MessageAppealForm {
+  margin-top: 40px;
+}
+
+#SendAppealForm button {
+  width: '128px';
+}
+
+.help-block {
+  cursor: pointer;
+  border-bottom: 1px solid @grey;
+  padding: 20px 0px;
+}
+
+.help-block img {
+  width: 25px;
+  vertical-align: middle;
+  float: right;
+}
+
+.help-block .answer {
+  display: none;
+}
+
+.show-answer .answer {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  max-width: 430px;
+  line-height: 20px;
+  padding-left: 15px;
+}
+
+.show-answer .answer ol li::marker {
+  padding-left: 15px;
+}
+
+.question {
+  font-size: 18px;
+  display: inline-block;
+  max-width: 430px;
+}
+
+#MessageAppealForm img {
+  width: 100px;
+  display: block;
+  margin: auto;
+}
+
+#MessageAppealForm label {
+  display: block;
+  text-align: center;
+}
+
+#MessageAppealForm label.first-label {
+  color: @green;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+#MessageAppealForm label.second-label {
+  margin-bottom: 20px;
+  margin-top: 6px;
+}
