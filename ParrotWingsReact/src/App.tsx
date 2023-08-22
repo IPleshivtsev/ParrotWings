@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import NavigationBar from './components/NavigationBar'
 import Main from './components/Main'
 import { Image } from 'react-bootstrap'
+import { IContextProps } from './components/auxiliary/Interfaces'
+
+export const PWContext = React.createContext<IContextProps>({})
 
 export default function App() {
   const [isAuthorized, setIsAuthorized] = useState(localStorage.getItem('userId') !== null)
@@ -10,20 +13,18 @@ export default function App() {
 
   return (
     <div className='app'>
-      <NavigationBar
-        userBalance={userBalance}
-        setUserBalance={setUserBalance}
-        isAuthorized={isAuthorized}
-        setIsAuthorized={setIsAuthorized}
-        setIsLoading={setIsLoading}
-      />
-      <Main
-        userBalance={userBalance}
-        setUserBalance={setUserBalance}
-        isAuthorized={isAuthorized}
-        setIsAuthorized={setIsAuthorized}
-        setIsLoading={setIsLoading}
-      />
+      <PWContext.Provider
+        value={{
+          isAuthorized,
+          setIsAuthorized,
+          userBalance,
+          setUserBalance,
+          setIsLoading,
+        }}
+      >
+        <NavigationBar/>
+        <Main/>
+      </PWContext.Provider>
       <div className={`loader ${!isLoading ? 'hidden' : ''}`}>
         <Image src='/images/loader.gif' />
       </div>

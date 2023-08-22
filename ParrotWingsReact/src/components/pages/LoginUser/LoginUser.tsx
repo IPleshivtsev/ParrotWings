@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Form, Row, Col, Button } from 'react-bootstrap'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { ILoginFormElements, ILoginData, IUserData, IUnionProps } from '../../auxiliary/Interfaces'
+import { ILoginFormElements, ILoginData, IUserData } from '../../auxiliary/Interfaces'
 import { validateEmail, validatePassword } from '../../auxiliary/Validators'
 import { _GetCurrentUserData, _Login } from '../../../api/ApiService'
+import { PWContext } from '../../../App'
 
-export default function LoginUser({ setIsAuthorized, setIsLoading }: IUnionProps) {
+export default function LoginUser() {
+  const { setIsAuthorized, setIsLoading } = React.useContext(PWContext)
   const [isEmailInputClicked, setIsEmailInputClicked] = useState(false)
   const [validateEmailError, setValidateEmailError] = useState('')
   const [isPasswordInputClicked, setIsPasswordInputClicked] = useState(false)
@@ -25,7 +27,6 @@ export default function LoginUser({ setIsAuthorized, setIsLoading }: IUnionProps
 
     const result = await _Login(loginData)
 
-    debugger
     if (result === true) {
       const userData: IUserData = await _GetCurrentUserData()
       if (typeof userData !== 'string') {

@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { Form, Row, Col, Button } from 'react-bootstrap'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { IUnionProps, IRegisterFormElements, IRegisterData, IUserData } from '../../auxiliary/Interfaces'
+import { IRegisterFormElements, IRegisterData, IUserData } from '../../auxiliary/Interfaces'
 import { validateConfirmPassword, validateEmail, validateText, validatePassword } from '../../auxiliary/Validators'
 import { _Register, _GetCurrentUserData } from '../../../api/ApiService'
+import { PWContext } from '../../../App'
 
-export default function RegisterUser({ setIsAuthorized, setIsLoading }: IUnionProps) {
+export default function RegisterUser() {
+  const { setIsAuthorized, setIsLoading } = React.useContext(PWContext)
   const [isNameInputClicked, setIsNameInputClicked] = useState(false)
   const [validateNameError, setValidateNameError] = useState('')
   const [isEmailInputClicked, setIsEmailInputClicked] = useState(false)

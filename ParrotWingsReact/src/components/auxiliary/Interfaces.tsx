@@ -32,12 +32,12 @@ export interface IAppealFormElements {
 //#endregion
 
 //#region Props
-export interface IUnionProps {
+export interface IContextProps {
   userBalance?: string
   setUserBalance?: (a: string) => void
-  isAuthorized: boolean
-  setIsAuthorized: (a: boolean) => void
-  setIsLoading: (a: boolean) => void
+  isAuthorized?: boolean
+  setIsAuthorized?: (a: boolean) => void
+  setIsLoading?: (a: boolean) => void
 }
 
 export interface ISearchUserElementsProps {

@@ -1,15 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './Transfer.less'
 import { Form, Row, Col, Button } from 'react-bootstrap'
-import { ITransactionData, ITransferFormElements, IUnionProps } from '../../auxiliary/Interfaces'
+import { ITransactionData, ITransferFormElements } from '../../auxiliary/Interfaces'
 import { handleAmountOnKeyDown, validateAmount, validateText } from '../../auxiliary/Validators'
 import { HistoryBlock } from '../../blocks/HistoryBlock/HistoryBlock'
 import { SearchUserElements } from '../../blocks/HistoryBlock/SearchUserElements'
 import { MessageBlock } from '../../blocks/MessageBlock/MessageBlock'
 import { BannerBlock } from '../../blocks/BannerBlock/BannerBlock'
 import { _CreateTransaction } from '../../../api/ApiService'
+import { PWContext } from '../../../App'
 
-export default function Transfer({ userBalance, setUserBalance, isAuthorized, setIsLoading }: IUnionProps) {
+export default function Transfer() {
+  const { userBalance, setUserBalance, isAuthorized, setIsLoading } = React.useContext(PWContext)
   const [isNameInputClicked, setIsNameInputClicked] = useState(false)
   const [validateNameError, setValidateNameError] = useState('')
   const [isAmountInputClicked, setIsAmountInputClicked] = useState(false)

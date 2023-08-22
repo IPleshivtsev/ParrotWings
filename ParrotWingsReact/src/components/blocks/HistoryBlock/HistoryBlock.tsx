@@ -53,7 +53,7 @@ export function HistoryBlock({ setIsShowHistoryBlock }: IHistoryBlockProps) {
   }
 
   return (
-    <div>
+    <>
       <DataTable
         columns={[
           {
@@ -118,6 +118,6 @@ export function HistoryBlock({ setIsShowHistoryBlock }: IHistoryBlockProps) {
         customStyles={customStyles}
         noDataComponent={<div>Операции не найдены</div>}
       />
-    </div>
+    </>
   )
 }

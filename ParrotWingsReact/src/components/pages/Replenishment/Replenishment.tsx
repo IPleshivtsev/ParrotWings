@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Replenishment.less'
 import { Form, Row, Col, Button } from 'react-bootstrap'
 import InputMask from 'react-input-mask'
-import { IReplenishmentFormElements, ITransactionData, IUnionProps } from '../../auxiliary/Interfaces'
+import { IReplenishmentFormElements, ITransactionData } from '../../auxiliary/Interfaces'
 import {
   handleAmountOnKeyDown,
   handleStringOnKeyDown,
@@ -15,8 +15,10 @@ import { HistoryBlock } from '../../blocks/HistoryBlock/HistoryBlock'
 import { MessageBlock } from '../../blocks/MessageBlock/MessageBlock'
 import { BannerBlock } from '../../blocks/BannerBlock/BannerBlock'
 import { _CreateTransaction } from '../../../api/ApiService'
+import { PWContext } from '../../../App'
 
-export default function Replenishment({ userBalance, setUserBalance, isAuthorized, setIsLoading }: IUnionProps) {
+export default function Replenishment() {
+  const { userBalance, setUserBalance, isAuthorized, setIsLoading } = React.useContext(PWContext)
   const [isCardNumberInputClicked, setIsCardNumberInputClicked] = useState(false)
   const [validateCardNumberError, setValidateCardNumberError] = useState('')
   const [isCardDateInputClicked, setIsCardDateInputClicked] = useState(false)

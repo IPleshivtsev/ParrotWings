@@ -2,11 +2,13 @@ import React, { useState, useRef } from 'react'
 import './Help.less'
 import { Image } from 'react-bootstrap'
 import { Form, Row, Col, Button } from 'react-bootstrap'
-import { IAppealFormElements, IAppealData, IUnionProps, IHelpBlockProps } from '../../auxiliary/Interfaces'
+import { IAppealFormElements, IAppealData, IHelpBlockProps } from '../../auxiliary/Interfaces'
 import { validateEmail, validateText } from '../../auxiliary/Validators'
 import { _CreateAppeal } from '../../../api/ApiService'
+import { PWContext } from '../../../App'
 
-export default function Help({ setIsLoading }: IUnionProps) {
+export default function Help() {
+  const { setIsLoading } = React.useContext(PWContext)
   const [isTitleInputClicked, setIsTitleInputClicked] = useState(false)
   const [validateTitleError, setValidateTitleError] = useState('')
   const [isMessageInputClicked, setIsMessageInputClicked] = useState(false)

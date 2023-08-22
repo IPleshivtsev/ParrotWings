@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from 'react'
 import './NavigationBar.less'
 import { NavLink } from 'react-router-dom'
 import { Image } from 'react-bootstrap'
-import { IUnionProps } from './auxiliary/Interfaces'
+import { PWContext } from '../App'
 
-export default function NavigationBar({ userBalance, setUserBalance, isAuthorized, setIsAuthorized }: IUnionProps) {
+export default function NavigationBar() {
+  const { isAuthorized, setIsAuthorized, userBalance, setUserBalance } = React.useContext(PWContext)
   const menuRef = useRef(null)
   const userNameMainRef = useRef(null)
   const userNameChildRef = useRef(null)
