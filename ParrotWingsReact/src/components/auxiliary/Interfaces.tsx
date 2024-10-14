@@ -59,8 +59,8 @@ export interface IMessageBlockProps {
 }
 
 export interface IHelpBlockProps {
+  children: JSX.Element;
   question: string
-  answer: () => React.JSX.Element
 }
 
 export interface IBannerBlockProps {

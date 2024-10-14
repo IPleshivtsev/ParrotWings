@@ -29,6 +29,7 @@ export default function LoginUser() {
 
     if (result === true) {
       const userData: IUserData = await _GetCurrentUserData()
+      
       if (typeof userData !== 'string') {
         localStorage.setItem('userId', userData.Id)
         localStorage.setItem('userName', userData.Name)

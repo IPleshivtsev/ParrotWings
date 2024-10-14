@@ -62,7 +62,7 @@ export default function Transfer() {
   const updateSearchUserElement = (value: string) => {
     localStorage.setItem('disableSearchUserElementCheckValue', 'true')
     let element = document.querySelector('.form-recipient-data .wrapper input') as HTMLInputElement
-    var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+    let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
     nativeInputValueSetter.call(element, value)
     element.dispatchEvent(new Event('input', { bubbles: true }))
   }
@@ -70,6 +70,7 @@ export default function Transfer() {
   useEffect(() => {
     setIsNameInputClicked(false)
     setIsAmountInputClicked(false)
+
     if (localStorage.getItem('repeatRecipientId') !== null) {
       setIsNameInputClicked(true)
       setValidateNameError('')
@@ -116,6 +117,7 @@ export default function Transfer() {
               onClick={() => {
                 setIsNameInputClicked(false)
                 setIsAmountInputClicked(false)
+                
                 if (isShowHistoryBlock === true) {
                   setIsShowHistoryBlock(false)
                 } else {

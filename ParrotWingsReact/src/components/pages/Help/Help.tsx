@@ -32,11 +32,8 @@ export default function Help() {
 
     const result: boolean = await _CreateAppeal(appealData)
 
-    if (typeof result !== 'string') {
-      setIsShowMessageAppealForm(true)
-    } else {
-      setServerError(result)
-    }
+    typeof result !== 'string' ? setIsShowMessageAppealForm(true) : setServerError(result)
+
     setIsLoading(false)
   }
 
@@ -62,8 +59,9 @@ export default function Help() {
     setIsShowMessageAppealForm(false)
   }
 
-  function HelpBlock({ question, answer }: IHelpBlockProps) {
+  function HelpBlock({ children, question }: IHelpBlockProps) {
     const [isShowAnswer, setIsShowAnswer] = useState(false)
+
     return (
       <div className={`help-block ${isShowAnswer ? 'show-answer' : ''}`} onClick={() => setIsShowAnswer(!isShowAnswer)}>
         <div className={'question-block'}>
@@ -71,7 +69,9 @@ export default function Help() {
           {isShowAnswer && <Image src='/images/arrowMoreDown.svg' />}
           {!isShowAnswer && <Image src='/images/arrowMoreUp.svg' />}
         </div>
-        <div className={'answer'}>{answer()}</div>
+        <div className={'answer'}>
+          <>{children}</>
+        </div>
       </div>
     )
   }
@@ -81,78 +81,52 @@ export default function Help() {
       <h2>Часто задаваемые вопросы</h2>
       <hr />
 
-      <HelpBlock
-        question={'Как начать пользоваться?'}
-        answer={() => {
-          return (
-            <div>
-              Зарегистрироваться в ParrotWings очень просто. Достаточно ввести свое имя, электронную почту и придумать
-              пароль.'
-            </div>
-          )
-        }}
-      />
+      <HelpBlock question={'Как начать пользоваться?'}>
+        <div>
+          Зарегистрироваться в ParrotWings очень просто. Достаточно ввести свое имя, электронную почту и придумать
+          пароль.'
+        </div>
+      </HelpBlock>
 
-      <HelpBlock
-        question={'Как перевести деньги другому пользователю?'}
-        answer={() => {
-          return (
-            <div>
-              <ol>
-                <li>Необходимо зайти в раздел 'Переводы';</li>
-                <li>В поле 'Получатель' ввести имя получателя, либо выбрать из выпадающего списка во время ввода;</li>
-                <li>Указать сумму перевода;</li>
-                <li>Нажать на кнопку 'Перевести'.</li>
-              </ol>
-              После удачной операции Вам будет выведено сообщение с результатом перевода.
-            </div>
-          )
-        }}
-      />
+      <HelpBlock question={'Как перевести деньги другому пользователю?'}>
+        <div>
+          <ol>
+            <li>Необходимо зайти в раздел 'Переводы';</li>
+            <li>В поле 'Получатель' ввести имя получателя, либо выбрать из выпадающего списка во время ввода;</li>
+            <li>Указать сумму перевода;</li>
+            <li>Нажать на кнопку 'Перевести'.</li>
+          </ol>
+          После удачной операции Вам будет выведено сообщение с результатом перевода.
+        </div>
+      </HelpBlock>
 
-      <HelpBlock
-        question={'Как пополнить свой счет?'}
-        answer={() => {
-          return (
-            <div>
-              <ol>
-                <li>Необходимо зайти в раздел 'Пополнение счета';</li>
-                <li>Ввести данные карты;</li>
-                <li>Указать сумму пополнения;</li>
-                <li>Нажать на кнопку 'Пополнить';</li>
-                <li>Далее необходимо подтвердить платеж на странице банка'.</li>
-              </ol>
-              После удачной операции Вам будет выведено сообщение с результатом пополнения.
-            </div>
-          )
-        }}
-      />
+      <HelpBlock question={'Как пополнить свой счет?'}>
+        <div>
+          <ol>
+            <li>Необходимо зайти в раздел 'Пополнение счета';</li>
+            <li>Ввести данные карты;</li>
+            <li>Указать сумму пополнения;</li>
+            <li>Нажать на кнопку 'Пополнить';</li>
+            <li>Далее необходимо подтвердить платеж на странице банка'.</li>
+          </ol>
+          После удачной операции Вам будет выведено сообщение с результатом пополнения.
+        </div>
+      </HelpBlock>
 
-      <HelpBlock
-        question={'Как быстро придут деньги на счет при переводе, либо пополнении счета?'}
-        answer={() => {
-          return <div>Деньги зачисляются от нескольких секунд до суток.</div>
-        }}
-      />
+      <HelpBlock question={'Как быстро придут деньги на счет при переводе, либо пополнении счета?'}>
+        <div>Деньги зачисляются от нескольких секунд до суток.</div>
+      </HelpBlock>
 
-      <HelpBlock
-        question={'Где я могу просмотреть историю своих операций?'}
-        answer={() => {
-          return (
-            <div>
-              Историю Ваших операций вы можете просмотреть на страницах 'Переводы' и 'Пополнение счета' в
-              соответствующих разделах, а также в своем профиле.
-            </div>
-          )
-        }}
-      />
+      <HelpBlock question={'Где я могу просмотреть историю своих операций?'}>
+        <div>
+          Историю Ваших операций вы можете просмотреть на страницах 'Переводы' и 'Пополнение счета' в соответствующих
+          разделах, а также в своем профиле.
+        </div>
+      </HelpBlock>
 
-      <HelpBlock
-        question={'Я отправил обращение в поддержку. Как долго мне ждать ответа?'}
-        answer={() => {
-          return <div>Большинство обращений решаются в тот же день, но иногда может понадобиться больше времени.</div>
-        }}
-      />
+      <HelpBlock question={'Я отправил обращение в поддержку. Как долго мне ждать ответа?'}>
+        <div>Большинство обращений решаются в тот же день, но иногда может понадобиться больше времени.</div>
+      </HelpBlock>
 
       {!isShowMessageAppealForm && (
         <Form

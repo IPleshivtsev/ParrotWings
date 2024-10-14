@@ -112,6 +112,7 @@ const AuthorizeResponseProcessing = async (response: any) => {
       if (data === '') {
         return Promise.reject([response.status, 'Данные отсутствуют'])
       }
+      
       localStorage.setItem('token', data)
       const expirationDateTime = new Date()
       localStorage.setItem('expirationDateTime', new Date(expirationDateTime.getTime() + 20 * 60000).toUTCString())
@@ -149,6 +150,7 @@ const ErrorProcessing = ([errorStatus, errorMessage, methodName]: Array<string>)
     errorStatus = '503'
     errorMessage = 'Сервис недоступен. Попробуйте позже'
   }
+
   console.log(`ApiService.${methodName} | ${errorStatus}: ${errorMessage}`)
   return errorMessage
 }
@@ -167,6 +169,6 @@ const GetDataInfo = (data: any) => {
   return typeof data === 'string'
     ? data
     : data.title !== undefined
-    ? `${data.title}: ${JSON.stringify(data.errors)}`
-    : JSON.stringify(data)
+      ? `${data.title}: ${JSON.stringify(data.errors)}`
+      : JSON.stringify(data)
 }

@@ -16,6 +16,7 @@ export function HistoryBlock({ setIsShowHistoryBlock }: IHistoryBlockProps) {
     async function getUserTransactions() {
       const transactionsData: Array<ITransactionData> = await _GetUserTransactions()
       const presentTransactionData = new Array<IPresentTransactionData>()
+
       transactionsData.forEach((element) => {
         const isReplenishment = element.TransferCardNumber != ''
         presentTransactionData.push({
@@ -45,11 +46,9 @@ export function HistoryBlock({ setIsShowHistoryBlock }: IHistoryBlockProps) {
     localStorage.setItem('repeatRecipientName', repeatRecipientName)
     localStorage.setItem('repeatAmount', repeatAmount)
 
-    if (location.pathname === '/transfer') {
-      setIsShowHistoryBlock(false)
-    } else {
-      navigate('/transfer')
-    }
+    location.pathname === '/transfer' 
+      ? setIsShowHistoryBlock(false)
+      : navigate('/transfer')
   }
 
   return (

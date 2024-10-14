@@ -11,8 +11,7 @@ export const handleAmountOnKeyDown = async (e: any) => {
 }
 
 export const handleStringOnKeyDown = async (e: any, regExp: RegExp, length: number) => {
-  if (
-    !functionalAndNumberKeysArray.includes(e.keyCode) ||
+  if (!functionalAndNumberKeysArray.includes(e.keyCode) ||
     (e.target.value.replace(regExp, '').length === length && !functionalKeysArray.includes(e.keyCode))
   ) {
     e.preventDefault()
@@ -40,8 +39,8 @@ export function validateEmail(value: string) {
         lastDotPos > 2 &&
         value.length - lastDotPos > 2
       )
-    ? 'Email некорректен'
-    : ''
+      ? 'Email некорректен'
+      : ''
 }
 
 export function validatePassword(value: string) {
@@ -51,7 +50,6 @@ export function validatePassword(value: string) {
 
 export function validateConfirmPassword(value: string, confirmValue: string) {
   let result = checkNullValue(value)
-
   return result !== '' ? result : value !== confirmValue ? 'Значения паролей не совпадают' : ''
 }
 
@@ -69,6 +67,7 @@ export function validateCardNumber(value: string) {
   value = value.replace(/\s|_/g, '')
 
   let result = checkNullValue(value)
+
   if (result !== '') {
     return result
   }
@@ -81,6 +80,7 @@ export function validateCardDate(value: string) {
   value = value.replace(/\/|_/g, '')
 
   let result = checkNullValue(value)
+
   if (result !== '') {
     return result
   }
@@ -91,19 +91,21 @@ export function validateCardDate(value: string) {
   }
 
   result = checkIncorrectValue(value, /\D+/g)
+
   return result !== ''
     ? result
     : value.substring(0, 2) === '00' ||
       parseInt(value.substring(0, 2)) > 12 ||
       parseInt(value.substring(2, 4)) < parseInt(new Date().getFullYear().toString().substring(2, 4))
-    ? 'Некорректная дата'
-    : ''
+      ? 'Некорректная дата'
+      : ''
 }
 
 export function validateCardCVV(value: string) {
   value = value.replace(/_/g, '')
 
   let result = checkNullValue(value)
+  
   if (result !== '') {
     return result
   }

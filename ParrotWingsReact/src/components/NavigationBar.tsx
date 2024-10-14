@@ -34,7 +34,9 @@ export default function NavigationBar() {
         handleOnClickOutside && handleOnClickOutside()
       }
     }
+    
     document.addEventListener('click', handleClickOutside, true)
+
     return () => {
       document.removeEventListener('click', handleClickOutside, true)
     }

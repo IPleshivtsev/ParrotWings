@@ -99,6 +99,7 @@ export default function Replenishment() {
                 setIsCardDateInputClicked(false)
                 setIsCardCVVInputClicked(false)
                 setIsAmountInputClicked(false)
+                
                 if (isShowHistoryBlock === true) {
                   setIsShowHistoryBlock(false)
                 } else {
